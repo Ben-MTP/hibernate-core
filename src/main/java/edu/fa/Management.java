@@ -1,6 +1,8 @@
 package edu.fa;
 
 import edu.fa.model.Course;
+import edu.fa.model.Syllabus;
+import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -14,7 +16,8 @@ public class Management {
 
   public static void main(String[] args) {
 
-    Course course = new Course("Hibernate Tutorial");
+    Syllabus syllabus = new Syllabus("Giao trinh Hibernate", 30);
+    Course course = new Course("Hibernate Tutorial", new Date(), syllabus);
     SessionFactory sessionFactory = ConnectionUtil.getSessionFactory();
     try {
       Session session = sessionFactory.openSession();     // Tạo ra một Session
@@ -24,7 +27,8 @@ public class Management {
       System.out.println(course);
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      ConnectionUtil.getSessionFactory().close(); //close connection to Database
     }
-    ConnectionUtil.getSessionFactory().close(); //close connection to Database
   }
 }
